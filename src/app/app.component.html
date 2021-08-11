@@ -1,0 +1,37 @@
+<div class="position-relative container">
+
+  <div class="row justify-content-center">
+    <div class="card mt-sm-3 col-md-8">
+      <div class="card-body">
+        <h3 class="mb-0">Artist Directory</h3>
+        <div class="form-group">
+          <div class="form-check-label" *ngIf="queryFor">
+            <strong>For:</strong>
+            {{queryFor}}
+          </div>
+          <input class="form-control mt-2" type="text" [(ngModel)]="queryFor"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="position-absolute container" style="left: 0; z-index: 10">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="list-group" *ngIf="queryFor">
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"
+             *ngFor="let artist of (artists | searchArtists: queryFor)"
+             (click)="showArtist(artist)"
+              [style.backgroundColor]="artist.highlight ? '#EEE' : '#FFF'">
+            <app-artist-items [artist]="artist"></app-artist-items>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentArtist">
+    <app-artist-details [artist]="currentArtist"></app-artist-details>
+  </div>
+
+</div>
